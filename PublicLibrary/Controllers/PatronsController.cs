@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
 
-namespace Patron.Controllers
+namespace PublicLibrary.Controllers
 {
   [Authorize]
   public class PatronsController : Controller
@@ -86,7 +86,7 @@ namespace Patron.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddCopy(Patron patron, int copyId)
+    public ActionResult AddCopy(PublicLibrary.Models.Patron patron, int copyId)
     {
 #nullable enable
       Checkout? joinEntity = _db.Checkouts.FirstOrDefault(join => (join.CopyId == copyId && join.PatronId == patron.PatronId));
@@ -134,7 +134,7 @@ namespace Patron.Controllers
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      Patron thisPatron = _db.Patron.FirstOrDefault(patron => patron.PatronId == id);
+      Patron thisPatron = _db.Patrons.FirstOrDefault(patron => patron.PatronId == id);
       _db.Patrons.Remove(thisPatron);
       _db.SaveChanges();
       return RedirectToAction("Index");

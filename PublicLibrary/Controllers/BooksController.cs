@@ -14,7 +14,7 @@ namespace PublicLibrary.Controllers
   [Authorize]
   public class BooksController : Controller
   {
-    private readonly PublicLibraryContex _db;
+    private readonly PublicLibraryContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public BooksController(UserManager<ApplicationUser> userManager, PublicLibraryContext db)
@@ -35,7 +35,7 @@ namespace PublicLibrary.Controllers
       // userRecipes.Sort(Book.CompareRecipeByRating);
       // return View(userRecipes);
 
-      return ViewModels(_db.Books.ToList());
+      return View(_db.Books.ToList());
     }
 
     public ActionResult Create()
@@ -58,7 +58,7 @@ namespace PublicLibrary.Controllers
       Book thisBook = _db.Books
           .Include(book => book.JoinEntities)
           .ThenInclude(join => join.Author)
-          .Include(book => book.User)
+          // .Include(book => book.User)
           .FirstOrDefault(book => book.BookId == id);
       
       // if(thisBook.User.Id == currentUser.Id)  HIDE THIS FROM ANYONE NOT THE OWNER
@@ -69,7 +69,7 @@ namespace PublicLibrary.Controllers
       // {
       //   return RedirectToAction("Index", "Home");
       // }
-
+      return View(thisBook);
     }
 
     public ActionResult AddAuthor(int id)

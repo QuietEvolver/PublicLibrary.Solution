@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using PublicLibrary.Models;
+using System;
 
 namespace PublicLibrary.Models
 {
@@ -13,6 +14,6 @@ namespace PublicLibrary.Models
     // public string Description { get; set; }
     public DateTime? DueDate { get; set; }
     public Copy Copies { get; set; }
-    public List<AuthorBooks> JoinEntities { get; set; }
+    public List<AuthorBook> JoinEntities { get; set; }
   }
 }

@@ -10,6 +10,7 @@ namespace PublicLibrary.Models
     public DbSet<Copy> Copies { get; set; }
     public DbSet<Patron> Patrons { get; set; }
     public DbSet<Checkout> Checkouts { get; set; }
+    public DbSet<Librarian> Librarians { get; set; }
     public PublicLibraryContext(DbContextOptions options) : base(options) { }
   }
 }

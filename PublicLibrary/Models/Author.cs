@@ -7,6 +7,6 @@ namespace PublicLibrary.Models
   {
     public int AuthorId { get; set;}
     public string AuthorName { get; set; }
-    public List<AuthorBook> AuthorBooks { get; set; }
+    public List<AuthorBook> JoinEntities { get; set; }
   }
 }

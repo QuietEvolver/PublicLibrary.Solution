@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
 
-namespace Librarian.Controllers
+namespace PublicLibrary.Controllers
 {
   [Authorize]
   public class LibrariansController : Controller
@@ -38,7 +38,7 @@ namespace Librarian.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Librarian librarian)
+    public async Task<ActionResult> Create(PublicLibrary.Models.Librarian librarian)
     {
       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
@@ -55,7 +55,7 @@ namespace Librarian.Controllers
 
       Librarian thisLibrarian = _db.Librarians
           .Include(librarian => librarian.JoinEntities)
-          .ThenInclude(join => join.Book)
+          .ThenInclude(join => join.Copy)
           .Include(librarian => librarian.User)
           .FirstOrDefault(librarian => librarian.LibrarianId == id);
       
@@ -78,17 +78,17 @@ namespace Librarian.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddBook(Librarian librarian, int bookId)
+    public ActionResult AddBook(PublicLibrary.Models.Author author, int bookId)
     {
 #nullable enable
-      AuthorBook? joinEntity = _db.AuthorBooks.FirstOrDefault(join => (join.BookId == bookId && join.LibrarianId == librarian.LibrarianId));
+      AuthorBook? joinEntity = _db.AuthorBooks.FirstOrDefault(join => (join.BookId == bookId && join.AuthorId == author.AuthorId));
 #nullable disable
       if (joinEntity == null && bookId != 0)
       {
-        _db.AuthorBooks.Add(new AuthorBook() { BookId = bookId, LibrarianId = librarian.LibrarianId });
+        _db.AuthorBooks.Add(new AuthorBook() { BookId = bookId, AuthorId = author.AuthorId });
         _db.SaveChanges();
       }
-      return RedirectToAction("Details", new { id = librarian.LibrarianId });
+      return RedirectToAction("Details", new { id = author.AuthorId });
     }
 
 
@@ -126,7 +126,7 @@ namespace Librarian.Controllers
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      Librarian thisLibrarian = _db.Librarian.FirstOrDefault(librarian => librarian.LibrarianId == id);
+      Librarian thisLibrarian = _db.Librarians.FirstOrDefault(librarian => librarian.LibrarianId == id);
       _db.Librarians.Remove(thisLibrarian);
       _db.SaveChanges();
       return RedirectToAction("Index");
