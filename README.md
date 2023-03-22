@@ -19,7 +19,7 @@ This project shows how to connect an ASP.NET Core MVC project to a MySQL databas
 
 ## Description
 
-This project uses Identity in an ASP.NET Core MVC project to authenticate users. This project contains a one-to-many relationship between `Book` and `Library` and a one-to-many relationship between `ApplicationUser` and `Library`. 
+This project uses Identity in an ASP.NET Core MVC project to authenticate users. This project contains a one-to-many relationship between `Book` and `Library`, a one-to-many relationship between `Book` and `Author`/`Patron` and `Copy`,  and a one-to-many relationship between `ApplicationUser` and `Library`. 
 
 ## How To Run This Project
 

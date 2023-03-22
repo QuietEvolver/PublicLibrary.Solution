@@ -1,0 +1,37 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PublicLibrary.Models
+@model Book
+
+<h2>@Html.DisplayFor(model => model.Title) Details</h2>
+<hr />
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This book does not have any authors assigned yet.</p>
+}
+else
+{
+  <h4>This book has the following authors:</h4>
+  <ul>
+    @foreach(AuthorBook join in Model.JoinEntities)
+    {
+      <li>Tag: @join.Author.AuthorName</li>
+      @using (Html.BeginForm("DeleteJoin", "Books"))
+      {
+        @Html.Hidden("joinId", @join.AuthorBookId)
+        <input type="submit" value="Delete"/>
+      }
+    }
+  </ul>
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Edit Recipe", "Edit", new { id = Model.RecipeId })</p>
+<p>@Html.ActionLink("Add a Tag", "AddTag", new { id = Model.RecipeId })</p>
+<p>@Html.ActionLink("Delete Item", "Delete", new { id = Model.RecipeId })</p>
+
+
+

@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@model PublicLibrary.Models.Book
+
+<h4>Add a new item</h4>
+
+<p>@Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Title)
+  @Html.TextBoxFor(model => model.Title)
+  
+
+  <input type="submit" value="Add new item" class="btn btn-success" />
+}
+<p>@Html.ActionLink("Show all Recipes", "Index")</p>
