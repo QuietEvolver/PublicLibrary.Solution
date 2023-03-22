@@ -1,0 +1,57 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PublicLibrary.Models
+
+<h1>Welcome to the Public Library!</h1>
+
+<hr>
+
+@if (User.Identity.IsAuthenticated)
+{
+
+  <h4>Books</h4>
+  @if (Model["books"].Length == 0)
+  {
+    <p>No books have been added yet!</p>
+  }
+  <ul>
+    @foreach (Book book in Model["books"])
+    {
+      <li>@Html.ActionLink(@book.Title, "Details", "Books", new { id = @book.BookId})</li>
+    }
+  </ul>
+}
+else
+{
+  <h4>Recipes</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") or @Html.ActionLink("register", "Register", "Account") to view or manage your books.</p>
+}
+
+<hr>
+@* @if (User.Identity.IsAuthenticated) 
+{*@
+
+  <h4>Authors</h4>
+  @if (Model["authors"].Length == 0)
+  {
+    <p>No authors have been added yet!</p>
+  }
+  <ul>
+    @foreach (Author author in Model["authors"])
+    {
+      <li>@Html.ActionLink(@author.AuthorName, "Details", "Authors", new { id = @author.AuthorId})</li>
+    }
+  </ul>
+@*}
+else
+{
+  <h4>Authors</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") or @Html.ActionLink("register", "Register", "Account") to view or manage your authors.</p>
+}  *@
+<hr>
+
+<p>@Html.ActionLink("Manage Books", "Index", "Books")</p> 
+<p>@Html.ActionLink("Manage Authors", "Index", "Authors")</p>
+<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>

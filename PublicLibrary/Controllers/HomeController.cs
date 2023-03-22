@@ -31,8 +31,8 @@ namespace PublicLibrary.Controllers
         List<Book> books = _db.Books.ToList();
         List<Author> authors = _db.Authors.ToList();
 
-        model.Add("Books", books.ToArray());
-        model.Add("Authors", authors.ToArray());
+        model.Add("books", books.ToArray());
+        model.Add("authors", authors.ToArray());
 
       return View(model);
     }
