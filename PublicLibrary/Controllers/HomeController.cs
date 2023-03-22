@@ -29,18 +29,10 @@ namespace PublicLibrary.Controllers
       Dictionary<string, object[]> model = new Dictionary<string, object[]>();
 
         List<Book> books = _db.Books.ToList();
-        
-        // Books.Sort(Book.CompareBookByRating);
-
-        // Book[] BooksSorted = Books.ToArray();
         List<Author> authors = _db.Authors.ToList();
 
-        model.Add("Books", books.ToArray()); //, BooksSorted
+        model.Add("Books", books.ToArray());
         model.Add("Authors", authors.ToArray());
-
-        // Author[] authors = _db.Authors
-        //             .ToArray();
-        // model.Add("authors", authors);
 
       return View(model);
     }
